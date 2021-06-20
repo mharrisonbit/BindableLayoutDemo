@@ -25,37 +25,30 @@ namespace NestedLayoutDemo.ViewModels
         {
             for (int i = 0; i < 5; i++)
             {
-                var hasModList = false;
-                if (i%2 == 0)
-                {
-                    hasModList = true;
-                }
 
                 OrderItemsList.Add(new Element
                 {
                     Name = $"item{i}",
                     Price = 0,
                     ItemCost = "0.0",
-                    HasExtras = hasModList,
+                    HasExtras = true,
                 });
-                if (hasModList)
+                
+                ObservableCollection<ModificationsElement> mods = new ObservableCollection<ModificationsElement>();
+                for (int j = 0; j < 3; j++)
                 {
-                    ObservableCollection<ModificationsElement> mods = new ObservableCollection<ModificationsElement>();
-                    for (int j = 0; j < 3; j++)
-                    {
-                        mods.Add
-                        (
-                            new ModificationsElement
-                            {
-                                Id = $"id{j}",
-                                Name = $"item{j}",
-                                Price = j.ToString(),
-                                Amount = 0
-                            }
-                        );
-                    }
-                    OrderItemsList[i].Mods = mods;
+                    mods.Add
+                    (
+                        new ModificationsElement
+                        {
+                            Id = $"id{j}",
+                            Name = $"item{j}",
+                            Price = j.ToString(),
+                            Amount = 0
+                        }
+                    );
                 }
+                OrderItemsList[i].Mods = mods;
             }
         }
     }

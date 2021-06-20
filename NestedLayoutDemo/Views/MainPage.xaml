@@ -4,22 +4,49 @@
              x:Class="NestedLayoutDemo.Views.MainPage"
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True">
-    <StackLayout>
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
-        </Frame>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-    </StackLayout>
-
+    <Grid RowDefinitions="Auto, Auto" Margin="20">
+        <StackLayout Orientation="Vertical"
+                     BindableLayout.ItemsSource="{Binding OrderItemsList}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="80*, 20*" RowDefinitions="25, *">
+                        <Label Text="{Binding Name}"
+                               LineBreakMode="TailTruncation"
+                               Grid.Column="0"
+                               Grid.Row="0"
+                               VerticalTextAlignment="Center"
+                               TextColor="Black"/>
+                        <Label Text="{Binding ItemCost}"
+                               Grid.Column="1"
+                               Grid.Row="0"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="End"
+                               TextColor="Black"/>
+                        <StackLayout Orientation="Vertical"
+                                     Grid.Row="1"
+                                     Grid.Column="0"
+                                     Grid.ColumnSpan="2"
+                                     Margin="20,0,0,0"
+                                     BindableLayout.ItemsSource="{Binding Mods}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                        <Grid ColumnDefinitions="80*, 20*" RowDefinitions="Auto, Auto">
+                                            <Label Grid.Row="0"
+                                                   Grid.Column="0"
+                                                   Text="{Binding Name}"
+                                                   VerticalTextAlignment="Center"/>
+                                            <Label Grid.Row="0"
+                                                   Grid.Column="1"
+                                                   Text="{Binding Price}"
+                                                   VerticalTextAlignment="Center"
+                                                   HorizontalTextAlignment="End"/>
+                                        </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </Grid>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+    </Grid>
 </ContentPage>
